@@ -13,6 +13,9 @@
 		042F775B1A0D1098001A915E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 042F775A1A0D1098001A915E /* Images.xcassets */; };
 		042F775E1A0D1098001A915E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042F775C1A0D1098001A915E /* LaunchScreen.xib */; };
 		042F776A1A0D1098001A915E /* PairsMatchingGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F77691A0D1098001A915E /* PairsMatchingGameTests.swift */; };
+		042F77741A0D145E001A915E /* SpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F77731A0D145E001A915E /* SpecTests.swift */; };
+		042F77751A0D1468001A915E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F77551A0D1098001A915E /* ViewController.swift */; };
+		042F77761A0D146F001A915E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042F77571A0D1098001A915E /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,7 @@
 		042F77631A0D1098001A915E /* PairsMatchingGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PairsMatchingGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		042F77681A0D1098001A915E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		042F77691A0D1098001A915E /* PairsMatchingGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairsMatchingGameTests.swift; sourceTree = "<group>"; };
+		042F77731A0D145E001A915E /* SpecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpecTests.swift; path = spec/SpecTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 		042F77661A0D1098001A915E /* PairsMatchingGameTests */ = {
 			isa = PBXGroup;
 			children = (
+				042F77731A0D145E001A915E /* SpecTests.swift */,
 				042F77691A0D1098001A915E /* PairsMatchingGameTests.swift */,
 				042F77671A0D1098001A915E /* Supporting Files */,
 			);
@@ -202,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042F77761A0D146F001A915E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042F77751A0D1468001A915E /* ViewController.swift in Sources */,
+				042F77741A0D145E001A915E /* SpecTests.swift in Sources */,
 				042F776A1A0D1098001A915E /* PairsMatchingGameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
