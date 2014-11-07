@@ -25,9 +25,18 @@ class ViewController: UIViewController {
         }
     }
     
+    var cardViews = [CardView]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControls()
+        
+        let layout = GameLayout()
+        for rect in layout.grid {
+            let cardView = CardView(frame: rect)
+            cardViews.append(cardView)
+            self.view.addSubview(cardView)
+        }
    }
 
     
