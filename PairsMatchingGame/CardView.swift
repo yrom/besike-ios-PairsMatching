@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardView: UIView {
+class CardView: UIControl {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -17,6 +17,22 @@ class CardView: UIView {
         // Drawing code
     }
     */
+    var card: Card? {
+        didSet {
+            if card != oldValue {
+                frontLayer.contents = UIImage(named: card!.imageName())!.CGImage
+            }
+        }
+    }
+    
+    var frontLayer: CALayer!
+    var backLayer: CALayer!
+    override var selected: Bool {
+        didSet{
+            frontLayer.hidden = !selected
+            backLayer.hidden = selected
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +45,21 @@ class CardView: UIView {
     }
 
     private func setup() {
-        self.backgroundColor = UIColor.grayColor()
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor(white: 0.8, alpha: 1).CGColor
+        
+        self.frontLayer = CALayer()
+        self.frontLayer.contents = UIImage(named: "ace_of_hearts")!.CGImage
+        self.frontLayer.hidden = true
+        self.layer.addSublayer(self.frontLayer)
+
+        self.backLayer = CALayer()
+        self.backLayer.contents = UIImage(named: "back")!.CGImage
+        self.layer.addSublayer(self.backLayer)
+    }
+    
+    override func layoutSubviews() {
+        self.frontLayer.frame = CGRectInset(self.layer.bounds, 2, 2)
+        self.backLayer.frame = self.layer.bounds
     }
 }
