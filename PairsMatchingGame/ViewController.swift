@@ -27,7 +27,14 @@ class ViewController: UIViewController {
     
     var cardViews = [CardView]()
     
-    var matchedPairs = 0
+    var matchedPairs: Int = 0 {
+        didSet {
+            if matchedPairs == pairsCount {
+                showDialog()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControls()
@@ -93,7 +100,7 @@ class ViewController: UIViewController {
             if view.card! == cardview.card! {
                 matchedPairs++
             } else {
-                delay(0.5, { self.hideCardView(view); self.hideCardView(cardview)})
+                delay(0.3, { self.hideCardView(view); self.hideCardView(cardview)})
             }
             lastSelectedCardView = nil
         } else {
@@ -101,7 +108,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
     
     func shuffleCards(button: UIButton) {
         shuffleCards()
@@ -197,6 +203,19 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    func showDialog() {
+        let alert = UIAlertController(title: "You Won", message: "Play another game!", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let shuffle = UIAlertAction(title: "Shuffle", style: UIAlertActionStyle.Default, handler: {
+            _ in
+            self.shuffleCards()
+        })
+        
+        alert.addAction(shuffle)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
 }
 
