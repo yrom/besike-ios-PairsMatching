@@ -66,19 +66,14 @@ extension GameLayout {
     func forPairs(pairs: Int) -> [CGRect] {
         assert(pairs >= 1 && pairs <= 10)
         var rects = [CGRect]()
-        let cols = 4
-        let size = CGSize(width: 65, height: 80)
-
         let layout = gameLayouts[pairs-1]
-        for row in 0..<layout.count/cols{
-           for col in 0..<cols {
-                if layout[row*cols+col] == 1 {
-                    let x = 15+Int(size.width)*col+10*col
-                    let y = 70+Int(size.height)*row+10*row
-                    rects.append(CGRect(origin: CGPoint(x: x, y: y), size: size))
-                }
+        
+        for (i, rect) in enumerate(self.grid) {
+            if layout[i] == 1 {
+                rects.append(rect)
             }
         }
+        
         return rects
     }
 
