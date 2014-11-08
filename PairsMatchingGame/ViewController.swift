@@ -24,7 +24,7 @@ class ViewController: UIViewController {
             return self.pairsCount * 2
         }
     }
-    
+    var gameLayout = GameLayout()
     var cardViews = [CardView]()
     
     var matchedPairs: Int = 0 {
@@ -39,6 +39,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupControls()
         setupCards()
+        // init
+        assignCards()
 //========20=====
 //        for rect in GameLayout().grid {
 //            let cardView = CardView(frame: rect)
@@ -84,6 +86,10 @@ class ViewController: UIViewController {
     }
     
     func revealAll(button: UIButton) {
+        revealAllCards()
+    }
+    
+    func revealAllCards() {
         self.foreach {
             $0.selected = true
         }
@@ -112,11 +118,11 @@ class ViewController: UIViewController {
     func shuffleCards(button: UIButton) {
         shuffleCards()
     }
-    
+
     func shuffleCards() {
         matchedPairs = 0
         assignCards()
-        revealAll(self.revealButton)
+        revealAllCards()
         delay(1, hideCards)
     }
     
@@ -155,47 +161,36 @@ class ViewController: UIViewController {
     }
     
     func setupCards() {
-        let rects = GameLayout().forPairs(self.pairsCount)
-        // remove all cards
-        foreach { $0.removeFromSuperview() }
-        self.cardViews.removeAll(keepCapacity: false)
-        // add new cards
-        for rect in rects {
-            let cardview = CardView(frame: rect)
-            cardViews.append(cardview)
-            cardview.addTarget(self, action: "tappedCard:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.view.addSubview(cardview)
+        
+        var toRemove = self.cardViews.count - self.cardsCount
+        // Remove excess card views
+        while toRemove > 0 {
+            self.cardViews.removeLast().removeFromSuperview()
+            toRemove--
         }
+        var toAdd = self.cardsCount - self.cardViews.count
+        // Add card views
+        while toAdd > 0 {
+            // set real frame later
+            let cardview = CardView(frame: gameLayout.grid[self.cardViews.count])
+            cardview.addTarget(self, action: "tappedCard:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.cardViews.append(cardview)
+            self.view.addSubview(cardview)
+            toAdd--
+        }
+        
+        let rects = gameLayout.forPairs(self.pairsCount)
+        // set frame to cardviews
+        for (i, cardview) in enumerate(self.cardViews) {
+            cardview.frame = rects[i]
+        }
+        
         lastSelectedCardView = nil
-        assignCards()
     }
     
     func stepperValueChanged(stepper: UIStepper) {
         setupCards()
-        
-//====================
-//        var toRemove = self.cardViews.count - self.cardsCount
-//        // Remove excess card views
-//        if toRemove > 0 {
-//            for i in 0..<toRemove{
-//                let cardView = self.cardViews.removeLast()
-//                cardView.removeFromSuperview()
-//            }
-//        }
-//        var toAdd = self.cardsCount - self.cardViews.count
-//        // Add card views
-//        if toAdd > 0 {
-//            let grid = GameLayout().grid
-//            for i in self.cardViews.count..<self.cardsCount{
-//                let rect = grid[i]
-//                let cardView = CardView(frame: rect)
-//                cardViews.append(cardView)
-//                self.view.addSubview(cardView)
-//            }
-//        }
-//        
-//        // After modifying cardViews, the following should be true:
-//        assert(self.cardViews.count == self.cardsCount)
+        shuffleCards()
 
     }
     override func didReceiveMemoryWarning() {
